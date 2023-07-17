@@ -5,7 +5,7 @@ import cloudinary from "cloudinary";
 
 export async function GET(
   req: Request,
-  { params }: { params: { storeId: string; billboardId: string } }
+  { params }: { params: { billboardId: string } }
 ) {
   try {
     if (!params.billboardId) {
@@ -44,6 +44,10 @@ export async function PATCH(
 
     if (!imageUrl) {
       return new NextResponse("ImageURL is required", { status: 400 });
+    }
+
+    if (!params.billboardId) {
+      return new NextResponse("BillboardId is required", { status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
