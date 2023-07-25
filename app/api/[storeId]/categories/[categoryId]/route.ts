@@ -1,7 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import cloudinary from "cloudinary";
 
 export async function GET(
   req: Request,
@@ -16,6 +15,9 @@ export async function GET(
       where: {
         id: params.categoryId,
       },
+      include: {
+        billboard: true,
+      }
     });
 
     return NextResponse.json(category);
